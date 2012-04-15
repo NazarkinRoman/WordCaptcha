@@ -18,7 +18,7 @@ Generate captcha pharse:
 require_once ('WordCaptcha.class.php');
 $captcha = new WordCaptcha();
 
-echo($captcha->gen_question(true));
+echo($captcha->gen_question());
 ?>
 ```
 
