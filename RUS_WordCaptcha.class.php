@@ -38,7 +38,7 @@ class WordCaptcha {
   }
 
   public function unset_session() {
-    @unset($_SESSION[$this->session_name]);
+    unset($_SESSION[$this->session_name]);
   }
 
   public function validate($input) {
