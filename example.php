@@ -36,5 +36,6 @@ else {
   </p>
 </form>
 HTML;
+echo($htmlform);
 }
 ?>
