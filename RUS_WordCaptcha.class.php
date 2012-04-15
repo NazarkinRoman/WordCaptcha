@@ -57,10 +57,9 @@ class WordCaptcha {
   }
 
   private function gen_number() {
-    $maxnumber = sizeof($this->numbers);
-    $first = mt_rand(1, $maxnumber);
-    $second = mt_rand(1, $maxnumber);
-    $action = mt_rand(0, sizeof($this->actions));
+    $first = array_rand($this->numbers);
+    $second = array_rand($this->numbers);
+    $action = array_rand($this->actions);
     if($action == 0) $pharse_out = $first+$second;
     elseif($action == 1) $pharse_out = $first-$second;
     elseif($action == 2) $pharse_out = $first/$second;
