@@ -1,7 +1,7 @@
 <?php
 
 /* ===================================
-* Автор: Назаркин Роман
+* Автор: Назаркин Роман, Ваагн Мкртчян
 * -----------------------------------
 * Контакты:
 * email - roman@nazarkin.su
@@ -19,8 +19,12 @@ class WordCaptcha {
   private $numbers = array(1 => 'один', 2 => 'два', 3 => 'три', 4 => 'четыре', 5 => 'пять', 6 => 'шесть', 7 => 'семь', 8 => 'восемь', 9 => 'девять');
   private $actions = array(0 => 'плюс', 1 => 'минус', 2 => 'разделить на', 3 => 'умножить на');
   private $replaces = array('о' => 'o', 'a' => 'а', 'p' => 'р', 'e' => 'е', 'с' => 'c');
+  private $destroy_session = false; // Should session be destroyed after validation?
 
-  function __construct() {session_start();}
+  function __construct($destroy = false) {
+    $this->destroy_session = $destroy;
+    session_start();
+  }
 
   public function gen_question($obfuscate = true) {
     while (1 > 0) {
@@ -38,14 +42,18 @@ class WordCaptcha {
   }
 
   public function unset_session() {
-    unset ($_SESSION[$this->session_name]);
+    if (isset($_SESSION[$this->session_name]))
+      unset ($_SESSION[$this->session_name]);
   }
 
   public function validate($input) {
-    if (isset($_SESSION[$this->session_name]) AND $_SESSION[$this->session_name] == $input)
+    if (isset($_SESSION[$this->session_name]) AND $_SESSION[$this->session_name] == $input) {
+      if ($this->destroy_session) $this->unset_session();
       return true;
-    else
+    } else {
+      if ($this->destroy_session) $this->unset_session();
       return false;
+    }
   }
 
   private function obfuscate($word) {
