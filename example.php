@@ -1,7 +1,7 @@
 ﻿<?php
 
 /* ===================================
-* Author: Nazarkin Roman
+* Author: Nazarkin Roman, Vahagn Mkrtchyan
 * -----------------------------------
 * Contacts:
 * email - roman@nazarkin.su
@@ -14,15 +14,14 @@
 */
 
 require_once ('ENG_WordCaptcha.class.php');
-$captcha = new WordCaptcha();
+$captcha = new WordCaptcha(true);
 
 if ( $_SERVER["REQUEST_METHOD"] === 'POST' and isset ($captcha)) {
   if ( $captcha->validate($_POST['answer']))
     echo ('Success!');
   else
     echo ('Error!');
-
-  $captcha->unset_session();
+  // Session will be destroyed upon validation.
 }
 else {
   $question = ucfirst( $captcha->gen_question(true));

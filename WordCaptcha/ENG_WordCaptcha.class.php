@@ -1,7 +1,7 @@
 <?php
 
 /* ===================================
- * Author: Nazarkin Roman
+ * Author: Nazarkin Roman, Vahagn Mkrtchyan
  * -----------------------------------
  * Contacts:
  * email - roman@nazarkin.su
@@ -18,8 +18,12 @@ class WordCaptcha {
   public $limit = 100;
   private $numbers = array(1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four', 5 => 'five', 6 => 'six', 7 => 'seven', 8 => 'eight', 9 => 'nine');
   private $actions = array(0 => 'plus', 1 => 'minus', 2 => 'divided by', 3 => 'multiplied by');
+  private $destroy_session = false; // Should session be destroyed after validation?
 
-  function __construct() {session_start();}
+  function __construct($destroy = false) {
+    $this->destroy_session = $destroy;
+    session_start();
+  }
 
   public function gen_question() {
     while (1 > 0) {
@@ -34,14 +38,18 @@ class WordCaptcha {
   }
 
   public function unset_session() {
-    unset ($_SESSION[$this->session_name]);
+    if (isset($_SESSION[$this->session_name]))
+      unset ($_SESSION[$this->session_name]);
   }
 
   public function validate($input) {
-    if (isset($_SESSION[$this->session_name]) AND $_SESSION[$this->session_name] == $input)
+    if (isset($_SESSION[$this->session_name]) AND $_SESSION[$this->session_name] == $input) {
+      if ($this->destroy_session) $this->unset_session();
       return true;
-    else
+    } else {
+      if ($this->destroy_session) $this->unset_session();
       return false;
+    }
   }
 
   private function gen_number() {
