@@ -1,9 +1,6 @@
 ﻿# WordCaptcha PHP Class #
 
-This PHP class is designed to combat spam. It is a new kind of protection your site / blog from spam attacks.
-
-[English demo](http://demo.nazarkin.su/WordCaptcha/english.php) -
-[Russian demo](http://demo.nazarkin.su/WordCaptcha/russian.php)
+This PHP class is designed to combat spam. Just another spam-protection PHP script. **Do not use it in real projects since as of 2019 it is outdated!**
 
 ## Requirements ##
 
@@ -40,10 +37,7 @@ if ( $captcha->validate($_POST['user_answer']))
 
 # PHP класс WordCaptcha (Russian) #
 
-Этот PHP создан для борьбы со спамом на ваших сайтах/блогах. Он представляет собой новую ступень в технологиях защиты от спама.
-
-[Демо на Английском](http://demo.nazarkin.su/WordCaptcha/english.php) -
-[Демо на Русском](http://demo.nazarkin.su/WordCaptcha/russian.php)
+Этот PHP создан для борьбы со спамом на ваших сайтах/блогах. **Не используйте его в реальных проектах, так как по состоянию на 2019 год данный скрипт сильно устарел!**
 
 ## Требования ##
 
